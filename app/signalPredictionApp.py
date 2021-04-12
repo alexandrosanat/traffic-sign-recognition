@@ -117,22 +117,25 @@ def main():
 
     if uploaded_image is not None:
 
+        # Create two columns for the predicted plots
+        col3, col4 = st.beta_columns(2)
+
         # Predict image
         image = Image.open(uploaded_image)
 
         st.write("")
-        st.write("Classifying...")
+        col3.write("Classifying...")
 
-        st.image(image, caption='Uploaded Image.', use_column_width=False)
+        col3.image(image.resize((150, 150)), caption='', use_column_width=False)
 
         x = image.resize((32, 32)).convert("L")
         img = tf.keras.preprocessing.image.img_to_array(x)
         img = np.expand_dims(img, axis=0)
-        st.image(x)
 
         prediction = np.argmax(model.predict(img, steps=1), axis=1)
 
-        st.write("Prediction: {}".format(prediction))
+        col4.write("The predicted image is:")
+        col4.image(category_images[prediction[0]])
 
 
 if __name__ == '__main__':
