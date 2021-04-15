@@ -112,7 +112,7 @@ def main():
 
     # Load trained model
     cwd = os.getcwd()
-    model_path = os.path.join(cwd, '..', "trained_model/lenet_acc96")
+    model_path = os.path.join(cwd, '..', "trained_model/lenet_86x86")
     model = tf.keras.models.load_model(model_path)
 
     if uploaded_image is not None:
@@ -128,7 +128,7 @@ def main():
 
         col3.image(image.resize((150, 150)), caption='', use_column_width=False)
 
-        x = image.resize((32, 32)).convert("L")
+        x = image.resize((86, 86)).convert("L")
         img = tf.keras.preprocessing.image.img_to_array(x)
         img = np.expand_dims(img, axis=0)
 
