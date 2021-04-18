@@ -132,3 +132,4 @@ dmypy.json
 /data
 /sample_photos
 /superseded
+/trained_model/lenet_86x86
