@@ -1,10 +1,10 @@
-import streamlit as st
 import os
 import tensorflow as tf
 from PIL import Image
 import glob
 import matplotlib.pyplot as plt
 import numpy as np
+import streamlit as st
 
 
 def intro():
@@ -35,7 +35,7 @@ def prediction_text():
 
 def load_signal_categories():
     cwd = os.getcwd()
-    categories_path = os.path.join(os.path.dirname(cwd), "data_included", "signal categories")
+    categories_path = os.path.join(cwd, "data_included", "signal categories")
     image_list = []
     for filename in glob.glob(os.path.join(categories_path, "*.png")):
         im = Image.open(filename)
@@ -57,7 +57,7 @@ def main():
 
     # Plot model summary plots
     cwd = os.getcwd()
-    training_plots_path = os.path.join(cwd, '..', 'outputs')
+    training_plots_path = os.path.join(cwd, 'outputs')
     plots = list()
 
     for i, img_name in enumerate(os.listdir(training_plots_path)):
@@ -112,7 +112,7 @@ def main():
 
     # Load trained model
     cwd = os.getcwd()
-    model_path = os.path.join(cwd, '..', "trained_model/lenet_86x86")
+    model_path = os.path.join(cwd, "trained_model/lenet_64x64")
     model = tf.keras.models.load_model(model_path)
 
     if uploaded_image is not None:
@@ -128,7 +128,7 @@ def main():
 
         col3.image(image.resize((150, 150)), caption='', use_column_width=False)
 
-        x = image.resize((86, 86)).convert("L")
+        x = image.resize((64, 64)).convert("L")
         img = tf.keras.preprocessing.image.img_to_array(x)
         img = np.expand_dims(img, axis=0)
 
